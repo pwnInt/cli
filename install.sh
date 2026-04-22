@@ -130,6 +130,7 @@ check() {
                     [ -f "$HOME/.bash_profile" ] && source "~/.bash_profile"
                 ;;
                 *fish) check ".config/fish/config.fish" "fish_add_path $spicetify_install" ;;
+            esac
             log "spicetify path already set in $shellrc, continuing..."
         fi
     else
