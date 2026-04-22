@@ -123,7 +123,13 @@ check() {
             export PATH="$spicetify_install:$PATH"
         else
             log "shellrc: $shellrc"
-            source $shellrc 2>/dev/null || true
+            case $SHELL in
+                *zsh) zsh -ic 'source ~/.zshrc && echo "Config loaded inside Zsh!"'
+                *bash) 
+                    [ -f "$HOME/.bashrc" ] && source "~/.bashrc"
+                    [ -f "$HOME/.bash_profile" ] && source "~/.bash_profile"
+                ;;
+                *fish) check ".config/fish/config.fish" "fish_add_path $spicetify_install" ;;
             log "spicetify path already set in $shellrc, continuing..."
         fi
     else
