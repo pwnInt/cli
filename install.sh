@@ -124,7 +124,7 @@ check() {
         else
             log "shellrc: $shellrc"
             case $SHELL in
-                *zsh) zsh -ic 'source ~/.zshrc && echo "Config loaded inside Zsh!"'
+                *zsh) zsh -ic 'source ~/.zshrc && echo "Config loaded inside Zsh!"' ;;
                 *bash) 
                     [ -f "$HOME/.bashrc" ] && source "~/.bashrc"
                     [ -f "$HOME/.bash_profile" ] && source "~/.bash_profile"
