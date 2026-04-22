@@ -123,7 +123,7 @@ check() {
             export PATH="$spicetify_install:$PATH"
         else
             log "shellrc: $shellrc"
-            source $shellrc
+            source $shellrc 2>/dev/null
             log "spicetify path already set in $shellrc, continuing..."
         fi
     else
