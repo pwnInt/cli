@@ -122,6 +122,8 @@ check() {
             echo "${2:-$path}" >> "$shellrc"
             export PATH="$spicetify_install:$PATH"
         else
+            log "shellrc: $shellrc"
+            source $shellrc
             log "spicetify path already set in $shellrc, continuing..."
         fi
     else
