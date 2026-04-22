@@ -123,14 +123,7 @@ check() {
             export PATH="$spicetify_install:$PATH"
         else
             log "shellrc: $shellrc"
-            case $SHELL in
-                *zsh) zsh -ic 'source ~/.zshrc && echo "Config loaded inside Zsh!"' ;;
-                *bash) 
-                    [ -f "$HOME/.bashrc" ] && source "~/.bashrc"
-                    [ -f "$HOME/.bash_profile" ] && source "~/.bash_profile"
-                ;;
-                *fish) check ".config/fish/config.fish" "fish_add_path $spicetify_install" ;;
-            esac
+            
             log "spicetify path already set in $shellrc, continuing..."
         fi
     else
@@ -139,7 +132,7 @@ check() {
 }
 
 case $SHELL in
-    *zsh) check ".zshrc" ;;
+    *zsh) exec zsh -is eval 'source ~/.zshrc' ;;
     *bash)
         [ -f "$HOME/.bashrc" ] && check ".bashrc"
         [ -f "$HOME/.bash_profile" ] && check ".bash_profile"
@@ -156,6 +149,14 @@ echo "Do you want to install spicetify Marketplace? (Y/n)"
 read -r choice < /dev/tty
 if [ "$choice" = "N" ] || [ "$choice" = "n" ]; then
     echo "spicetify Marketplace installation aborted"
+    case $SHELL in
+        *zsh) zsh -ic 'source ~/.zshrc && echo "Config loaded inside Zsh!"' ;;
+        *bash) 
+            [ -f "$HOME/.bashrc" ] && source "~/.bashrc"
+            [ -f "$HOME/.bash_profile" ] && source "~/.bash_profile"
+        ;;
+        *fish) check ".config/fish/config.fish" "fish_add_path $spicetify_install" ;;
+    esac
     exit 0
 fi
 echo "Starting the spicetify Marketplace installation script.."
